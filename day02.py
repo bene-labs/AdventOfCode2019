@@ -1,8 +1,7 @@
-def day02_1(path):
-    with open(path, "r", encoding="utf-8-sig") as input_file:
-        program = [int(code) for code in input_file.read().split(',')]
-    program[1] = 12
-    program[2] = 2
+def compute(program, noun, verb):
+
+    program[1] = noun
+    program[2] = verb
 
     for i in range(0, len(program), 4):
         opcode, arg1, arg2, res = program[i:i+4]
@@ -20,6 +19,14 @@ def day02_1(path):
 
 
 if __name__ == '__main__':
+    with open("inputs/day02", "r", encoding="utf-8-sig") as input_file:
+        program = [int(code) for code in input_file.read().split(',')]
+
     print("-----DAY 02-----")
     print("Solutions:")
-    print(f'Part1: {day02_1("inputs/day02")}')
+    print(f'Part1: {compute(program.copy(), 29, 2)}')
+
+    for noun in range(100):
+        for verb in range(100):
+            if compute(program.copy(), noun, verb) == 19690720:
+                print(f'Part2: {100 * noun + verb}')
